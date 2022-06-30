@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,45 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+
+/* Aggiungo la prima rotta */
+/* Tutti i post con response json customizzabile */
+
+/*
+Versione nelle slide
+Route::get('posts', function() {
+    $posts = Post::all();
+
+    return response()->json([
+        Chiave - Valore
+        'status_code' => 200,
+        'posts' => $posts
+    ]);
+});
+*/
+
+/* Alternativa non customizzabile */
+
+/*
+Route::get('posts', function() {
+    $posts = Post::all();
+    return $posts;
+});
+*/
+
+/* Alternativa customizzabile con numero di records */
+
+/*
+Route::get('posts', function() {
+    $posts = Post::paginate(10); // Numero di records per pagina
+    return $posts;
+});
+*/
+
+Route::get('posts', function() {
+    $posts = Post::with(['tags', 'category'])->get(); // Visualizzazione con relazione
+    return $posts;
 });
