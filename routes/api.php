@@ -47,15 +47,16 @@ Route::get('posts', function() {
 */
 
 /* Alternativa customizzabile con numero di records */
-
-/*
-Route::get('posts', function() {
+/* Route::get('posts', function() {
     $posts = Post::paginate(10); // Numero di records per pagina
     return $posts;
-});
-*/
+}); */
+
+
+/* scorciatoia con relazione (nome dei metodi nelle tabelle pivot) */
 
 Route::get('posts', function() {
-    $posts = Post::with(['tags', 'category'])->get(); // Visualizzazione con relazione
+    $posts = Post::with(['tags', 'category'])->paginate(9); // Visualizzazione con relazione (nome dei metodi nelle tabelle pivot)
     return $posts;
 });
+
