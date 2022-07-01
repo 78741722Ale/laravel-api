@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 mb-5 bg-dark text-light">
+    <div class="p-5 bg-dark text-light">
         <div class="container">
             <!-- Titolo -->
             <h1 class="display-3">Boolpress Blog</h1>

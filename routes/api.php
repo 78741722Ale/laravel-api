@@ -56,3 +56,4 @@ Route::get('posts', function() {
 /* scorciatoia con relazione (nome dei metodi nelle tabelle pivot) */
 Route::get('posts', 'API\PostController@index');
 Route::get('categories', 'API\CategoryController@index');
+Route::get('tags', 'API\TagController@index');
