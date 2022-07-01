@@ -2,7 +2,7 @@
         <div>
             <!-- Componente Work in progress -->
             <banner-component></banner-component>
-
+            <!-- Tutto contenuto pagina -->
             <div class="container-fluid">
                 <div class="row">
                     <main class="col-12 col-md-9 col-lg-10">
@@ -20,7 +20,7 @@
                                                 <!-- Titolo -->
                                                 <h3>{{post.title}}</h3>
                                                 <!-- Paragrafo -->
-                                                <p>{{post.content}}</p>
+                                                <p>{{trimText(post.content)}}</p>
                                             </div>
                                             <!-- Card footer (metadati) -->
                                             <div class="card-footer">
@@ -165,6 +165,13 @@ export default {
             .catch(e => {
                 console.log(e);
             })
+        },
+        trimText(text) {
+            /* Condizione se testo di content va oltre i 50 caratteri */
+            if(text.length > 50) {
+                return text.slice(0, 50) + '...'
+            }
+            return text;
         }
     },
     /* Metodo */

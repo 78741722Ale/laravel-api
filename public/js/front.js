@@ -2106,6 +2106,14 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (e) {
         console.log(e);
       });
+    },
+    trimText: function trimText(text) {
+      /* Condizione se testo di content va oltre i 50 caratteri */
+      if (text.length > 50) {
+        return text.slice(0, 50) + '...';
+      }
+
+      return text;
     }
   },
 
@@ -37774,7 +37782,7 @@ var render = function () {
                         _c("div", { staticClass: "card-body" }, [
                           _c("h3", [_vm._v(_vm._s(post.title))]),
                           _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(post.content))]),
+                          _c("p", [_vm._v(_vm._s(_vm.trimText(post.content)))]),
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "card-footer" }, [
