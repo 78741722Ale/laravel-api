@@ -1,11 +1,9 @@
 <template>
-
-
         <div>
             <!-- Componente Work in progress -->
-            <work-in-progress></work-in-progress>
+            <banner-component></banner-component>
             <!-- Section relativa ai posts -->
-            <div class="posts">
+            <section class="posts">
                 <div class="container">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gy-4">
                         <!-- Singola colonna da replicare con ciclo v-for -->
@@ -59,12 +57,9 @@
                                 <span class="visually-hidden">Previous</span>
                             </a>
                         </li>
-
-
-
-                        <!-- Link alla pagina 2 -->
+                        <!-- Link alla pagina dinamico -->
                         <li :class="{'page-item' : true, 'active': page == postsResponse.current_page}" v-for="page in postsResponse.last_page" :key="page.id">
-                            <a class="page-link" href="#">{{page}}</a>
+                            <a class="page-link" href="#" @click.prevent="getAllPosts(page)">{{page}}</a>
                         </li>
                         <!-- Pagina successiva -->
                         <li class="page-item" v-if="postsResponse.current_page < postsResponse.last_page">
@@ -75,21 +70,30 @@
                         </li>
                     </ul>
                 </nav>
-            </div>
+            </section>
+            <!-- Barra laterale con Categorie -->
+            <aside>
+                <div class="categories">
+                    <ul>
+                        <!-- List Item dinamici -->
+                        <li v-for="category in categories" :key="category.id">{{category.name}}</li>
+                    </ul>
+                </div>
+            </aside>
         </div>
 </template>
 
 
 <script>
-import WorkInProgress from '../components/WorkInProgress';
+import BannerComponent from '../components/BannerComponent';
 export default {
     name: 'App',
     /* Componente */
-    components: { WorkInProgress },
+    components: { BannerComponent },
     /* Data */
     data() {
         return {
-            posts: '',
+            categories: '',
             postsResponse : ''
         }
     },
@@ -117,6 +121,18 @@ export default {
             .catch(e => {
                 console.log(e);
             })
+        },
+        getAllCategories() {
+            axios
+            .get('/api/categories')
+            .then(response => {
+                /* Verifica del responso */
+                console.log(response);
+                this.categories = response.data;
+            })
+            .catch(e => {
+                console.log(e);
+            })
         }
     },
     /* Metodo */
@@ -124,6 +140,7 @@ export default {
         /* Verifica del mounted */
         console.log('mounted');
         this.getAllPosts(1)
+        this.getAllCategories(1)
     },
 }
 </script>
