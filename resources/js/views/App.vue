@@ -6,8 +6,8 @@
             <work-in-progress></work-in-progress>
             <!-- Section relativa ai posts -->
             <div class="posts">
-                <div class="container ">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 gy-4">
                         <!-- Singola colonna da replicare con ciclo v-for -->
                         <div class="col" v-for="post in postsResponse.data" :key="post.id">
                             <div class="product card">
@@ -49,10 +49,34 @@
                         </div>
                     </div>
                 </div>
+                <!-- Navbar Sotto per cambio pagina -->
+                <nav class="py-3" aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <!-- Pagina Precedente -->
+                        <li class="page-item" v-if="postsResponse.current_page > 1">
+                            <a class="page-link" href="#" aria-label="Previous" @click.prevent="getAllPosts(postsResponse.current_page - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="visually-hidden">Previous</span>
+                            </a>
+                        </li>
+
+
+
+                        <!-- Link alla pagina 2 -->
+                        <li :class="{'page-item' : true, 'active': page == postsResponse.current_page}" v-for="page in postsResponse.last_page" :key="page.id">
+                            <a class="page-link" href="#">{{page}}</a>
+                        </li>
+                        <!-- Pagina successiva -->
+                        <li class="page-item" v-if="postsResponse.current_page < postsResponse.last_page">
+                            <a class="page-link" href="#" aria-label="Next" @click.prevent="getAllPosts(postsResponse.current_page + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="visually-hidden">Succ</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-
-
 </template>
 
 
@@ -71,18 +95,26 @@ export default {
     },
     methods: {
         /* Metodo per impaginazione */
-        getAllPosts() {
+        getAllPosts(postPage) {
+            /* Verifica della current page */
+            console.log(postPage);
             /* La nostra richiesta */
             axios
-            .get('/api/posts') // Quello da ricavare
+            .get('/api/posts', {
+                /* Gestione delle pagine */
+                params: {
+                    page: postPage
+                }
+            })
+            // Quello da ricavare
             .then((response) => {
                 /* Verifica del responso */
                 console.log(response);
                 /* Prendiamo i nostri post */
-                this.posts = response.data.data
+                /* this.posts = response.data.data */
                 this.postsResponse = response.data
-
-            }).catch(e => {
+            })
+            .catch(e => {
                 console.log(e);
             })
         }
@@ -91,7 +123,7 @@ export default {
     mounted() {
         /* Verifica del mounted */
         console.log('mounted');
-        this.getAllPosts()
+        this.getAllPosts(1)
     },
 }
 </script>

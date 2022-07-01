@@ -56,7 +56,7 @@ Route::get('posts', function() {
 /* scorciatoia con relazione (nome dei metodi nelle tabelle pivot) */
 
 Route::get('posts', function() {
-    $posts = Post::with(['tags', 'category'])->paginate(9); // Visualizzazione con relazione (nome dei metodi nelle tabelle pivot)
+    $posts = Post::with(['tags', 'category'])->paginate(); // Visualizzazione con relazione (nome dei metodi nelle tabelle pivot)
     return $posts;
 });
 
