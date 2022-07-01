@@ -78,12 +78,22 @@
                     </main>
                     <!-- Barra laterale con Categorie -->
                     <aside class="bg-white p-2 col-md-3 col-lg-2">
+                        <!-- Categorie -->
                         <div class="categories pt-5">
                             <!-- Titolo di Sezione -->
                             <h3>Categories </h3>
                             <ul>
                                 <!-- List Item dinamici -->
                                 <li v-for="category in categories" :key="category.id">{{category.name}}</li>
+                            </ul>
+                        </div>
+                        <!-- Tags -->
+                        <div class="categories pt-5">
+                            <!-- Titolo di Sezione -->
+                            <h3>Tags</h3>
+                            <ul>
+                                <!-- List Item dinamici -->
+                                <li v-for="tag in tags" :key="tag.id">{{tag.name}}</li>
                             </ul>
                         </div>
                     </aside>
@@ -145,7 +155,7 @@ export default {
             })
         },
         getAllTags() {
-             axios
+            axios
             .get('/api/tags')
             .then(response => {
                 /* Verifica del responso */

@@ -2031,6 +2031,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
@@ -37934,6 +37944,18 @@ var render = function () {
                   return _c("li", { key: category.id }, [
                     _vm._v(_vm._s(category.name)),
                   ])
+                }),
+                0
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "categories pt-5" }, [
+              _c("h3", [_vm._v("Tags")]),
+              _vm._v(" "),
+              _c(
+                "ul",
+                _vm._l(_vm.tags, function (tag) {
+                  return _c("li", { key: tag.id }, [_vm._v(_vm._s(tag.name))])
                 }),
                 0
               ),
